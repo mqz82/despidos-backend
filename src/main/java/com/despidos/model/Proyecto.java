@@ -25,9 +25,9 @@ public class Proyecto {
     private Long id;
 
     // === DATOS DEL EXPEDIENTE ===
-    @NotBlank(message = "El número de expediente es requerido")
-    @Column(name = "numero_expediente", unique = true)
-    private String numeroExpediente;
+    @NotBlank(message = "El nombre de expediente es requerido")
+    @Column(name = "nombre_expediente", unique = true)
+    private String nombreExpediente;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "estado")

@@ -26,15 +26,15 @@ public class ProyectoService {
     // ==========================================
 
     public Proyecto crearProyecto(Proyecto proyecto) {
-        if (proyectoRepository.findByNumeroExpediente(proyecto.getNumeroExpediente()).isPresent()) {
-            throw new RuntimeException("Ya existe un proyecto con el expediente: " + proyecto.getNumeroExpediente());
+        if (proyectoRepository.findBynombreExpediente(proyecto.getNombreExpediente()).isPresent()) {
+            throw new RuntimeException("Ya existe un proyecto con el expediente: " + proyecto.getNombreExpediente());
         }
         // Asignar el proyecto a cada documento antes de guardar
         if (proyecto.getDocumentos() != null){
             proyecto.getDocumentos().forEach(doc -> doc.setProyecto(proyecto));
         }
 
-        log.info("Creando proyecto: {}", proyecto.getNumeroExpediente());
+        log.info("Creando proyecto: {}", proyecto.getNombreExpediente());
         return proyectoRepository.save(proyecto);
     }
 
@@ -52,7 +52,7 @@ public class ProyectoService {
         Proyecto existente = proyectoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Proyecto no encontrado: " + id));
 
-        existente.setNumeroExpediente(proyectoActualizado.getNumeroExpediente());
+        existente.setNombreExpediente(proyectoActualizado.getNombreExpediente());
         existente.setNombreEmpleado(proyectoActualizado.getNombreEmpleado());
         existente.setApellidoEmpleado(proyectoActualizado.getApellidoEmpleado());
         existente.setLegajo(proyectoActualizado.getLegajo());

@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface ProyectoRepository extends JpaRepository<Proyecto, Long> {
 
-    Optional<Proyecto> findByNumeroExpediente(String numeroExpediente);
+    Optional<Proyecto> findBynombreExpediente(String nombreExpediente);
 
     List<Proyecto> findByEstado(Proyecto.EstadoProyecto estado);
 
@@ -39,7 +39,7 @@ public interface ProyectoRepository extends JpaRepository<Proyecto, Long> {
     @Query("SELECT p FROM Proyecto p WHERE " +
            "LOWER(p.nombreEmpleado) LIKE LOWER(CONCAT('%', :termino, '%')) OR " +
            "LOWER(p.apellidoEmpleado) LIKE LOWER(CONCAT('%', :termino, '%')) OR " +
-           "LOWER(p.numeroExpediente) LIKE LOWER(CONCAT('%', :termino, '%')) OR " +
+           "LOWER(p.nombreExpediente) LIKE LOWER(CONCAT('%', :termino, '%')) OR " +
            "LOWER(p.legajo) LIKE LOWER(CONCAT('%', :termino, '%'))")
     List<Proyecto> buscar(@Param("termino") String termino);
 
