@@ -65,7 +65,7 @@ public class ProyectoService {
         existente.setDniEmpleado(proyectoActualizado.getDniEmpleado());
         existente.setEmailEmpleado(proyectoActualizado.getEmailEmpleado());
         existente.setFechaAudiencia(proyectoActualizado.getFechaAudiencia());
-        existente.setJuzgado(proyectoActualizado.getJuzgado());
+        existente.setDireccionTrabajo(proyectoActualizado.getDireccionTrabajo());
         existente.setNumeroCausa(proyectoActualizado.getNumeroCausa());
         existente.setAbogadoEmpresa(proyectoActualizado.getAbogadoEmpresa());
         existente.setAbogadoEmpleado(proyectoActualizado.getAbogadoEmpleado());

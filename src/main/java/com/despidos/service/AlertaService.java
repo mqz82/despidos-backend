@@ -132,8 +132,8 @@ public class AlertaService {
         sb.append(String.format("FECHA DE AUDIENCIA: %s\n", proyecto.getFechaAudiencia()));
         sb.append(String.format("DÍAS RESTANTES: %d días\n", diasRestantes));
 
-        if (proyecto.getJuzgado() != null) {
-            sb.append(String.format("JUZGADO: %s\n", proyecto.getJuzgado()));
+        if (proyecto.getDireccionTrabajo() != null) {
+            sb.append(String.format("JUZGADO: %s\n", proyecto.getDireccionTrabajo()));
         }
         if (proyecto.getNumeroCausa() != null) {
             sb.append(String.format("NÚMERO DE CAUSA: %s\n", proyecto.getNumeroCausa()));

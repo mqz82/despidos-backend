@@ -74,8 +74,8 @@ public class Proyecto {
     @Column(name = "fecha_audiencia")
     private LocalDate fechaAudiencia;
 
-    @Column(name = "juzgado")
-    private String juzgado;
+    @Column(name = "Dirección_trabajo")
+    private String direccionTrabajo;
 
     @Column(name = "numero_causa")
     private String numeroCausa;
