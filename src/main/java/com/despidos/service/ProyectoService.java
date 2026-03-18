@@ -62,7 +62,7 @@ public class ProyectoService {
         existente.setFechaDespido(proyectoActualizado.getFechaDespido());
         existente.setTipoDespido(proyectoActualizado.getTipoDespido());
         existente.setMontoIndemnizacion(proyectoActualizado.getMontoIndemnizacion());
-        existente.setDniEmpleado(proyectoActualizado.getDniEmpleado());
+        existente.setRutEmpleado(proyectoActualizado.getRutEmpleado());
         existente.setEmailEmpleado(proyectoActualizado.getEmailEmpleado());
         existente.setFechaAudiencia(proyectoActualizado.getFechaAudiencia());
         existente.setDireccionTrabajo(proyectoActualizado.getDireccionTrabajo());
@@ -73,6 +73,8 @@ public class ProyectoService {
         existente.setNotas(proyectoActualizado.getNotas());
         existente.setDiasAnticipacionAlerta(proyectoActualizado.getDiasAnticipacionAlerta());
         existente.setEmailAlerta(proyectoActualizado.getEmailAlerta());
+        existente.setRutAbogadoEmpleado(proyectoActualizado.getRutAbogadoEmpleado());
+        existente.setRutAbogadoEmpresa(proyectoActualizado.getRutAbogadoEmpresa());
 
         // Resetear alerta si se cambió la fecha de audiencia
         if (!existente.getFechaAudiencia().equals(proyectoActualizado.getFechaAudiencia())) {

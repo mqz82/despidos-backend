@@ -63,8 +63,8 @@ public class Proyecto {
     @Column(name = "monto_indemnizacion", precision = 15, scale = 2)
     private BigDecimal montoIndemnizacion;
 
-    @Column(name = "dni_empleado")
-    private String dniEmpleado;
+    @Column(name = "rut_Empleado")
+    private String rutEmpleado;
 
     @Column(name = "email_empleado")
     private String emailEmpleado;
@@ -108,6 +108,12 @@ public class Proyecto {
 
     @Column(name = "fecha_modificacion")
     private LocalDateTime fechaModificacion;
+
+    @Column(name = "rut_abogado_Empleado")
+    private String rutAbogadoEmpleado;
+
+    @Column(name = "rut_Abogado_Empresa")
+    private String rutAbogadoEmpresa;
 
     // === DOCUMENTOS ===
     @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
