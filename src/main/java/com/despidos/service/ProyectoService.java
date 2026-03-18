@@ -26,15 +26,15 @@ public class ProyectoService {
     // ==========================================
 
     public Proyecto crearProyecto(Proyecto proyecto) {
-        if (proyectoRepository.findByNumeroExpediente(proyecto.getNumeroExpediente()).isPresent()) {
-            throw new RuntimeException("Ya existe un proyecto con el expediente: " + proyecto.getNumeroExpediente());
+        if (proyectoRepository.findBynombreExpediente(proyecto.getNombreExpediente()).isPresent()) {
+            throw new RuntimeException("Ya existe un proyecto con el expediente: " + proyecto.getNombreExpediente());
         }
         // Asignar el proyecto a cada documento antes de guardar
         if (proyecto.getDocumentos() != null){
             proyecto.getDocumentos().forEach(doc -> doc.setProyecto(proyecto));
         }
 
-        log.info("Creando proyecto: {}", proyecto.getNumeroExpediente());
+        log.info("Creando proyecto: {}", proyecto.getNombreExpediente());
         return proyectoRepository.save(proyecto);
     }
 
@@ -52,7 +52,7 @@ public class ProyectoService {
         Proyecto existente = proyectoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Proyecto no encontrado: " + id));
 
-        existente.setNumeroExpediente(proyectoActualizado.getNumeroExpediente());
+        existente.setNombreExpediente(proyectoActualizado.getNombreExpediente());
         existente.setNombreEmpleado(proyectoActualizado.getNombreEmpleado());
         existente.setApellidoEmpleado(proyectoActualizado.getApellidoEmpleado());
         existente.setLegajo(proyectoActualizado.getLegajo());
@@ -62,10 +62,10 @@ public class ProyectoService {
         existente.setFechaDespido(proyectoActualizado.getFechaDespido());
         existente.setTipoDespido(proyectoActualizado.getTipoDespido());
         existente.setMontoIndemnizacion(proyectoActualizado.getMontoIndemnizacion());
-        existente.setDniEmpleado(proyectoActualizado.getDniEmpleado());
+        existente.setRutEmpleado(proyectoActualizado.getRutEmpleado());
         existente.setEmailEmpleado(proyectoActualizado.getEmailEmpleado());
         existente.setFechaAudiencia(proyectoActualizado.getFechaAudiencia());
-        existente.setJuzgado(proyectoActualizado.getJuzgado());
+        existente.setDireccionTrabajo(proyectoActualizado.getDireccionTrabajo());
         existente.setNumeroCausa(proyectoActualizado.getNumeroCausa());
         existente.setAbogadoEmpresa(proyectoActualizado.getAbogadoEmpresa());
         existente.setAbogadoEmpleado(proyectoActualizado.getAbogadoEmpleado());
@@ -73,6 +73,8 @@ public class ProyectoService {
         existente.setNotas(proyectoActualizado.getNotas());
         existente.setDiasAnticipacionAlerta(proyectoActualizado.getDiasAnticipacionAlerta());
         existente.setEmailAlerta(proyectoActualizado.getEmailAlerta());
+        existente.setRutAbogadoEmpleado(proyectoActualizado.getRutAbogadoEmpleado());
+        existente.setRutAbogadoEmpresa(proyectoActualizado.getRutAbogadoEmpresa());
 
         // Resetear alerta si se cambió la fecha de audiencia
         if (!existente.getFechaAudiencia().equals(proyectoActualizado.getFechaAudiencia())) {

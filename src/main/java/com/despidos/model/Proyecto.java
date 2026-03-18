@@ -25,9 +25,9 @@ public class Proyecto {
     private Long id;
 
     // === DATOS DEL EXPEDIENTE ===
-    @NotBlank(message = "El número de expediente es requerido")
-    @Column(name = "numero_expediente", unique = true)
-    private String numeroExpediente;
+    @NotBlank(message = "El nombre de expediente es requerido")
+    @Column(name = "nombre_expediente", unique = true)
+    private String nombreExpediente;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "estado")
@@ -63,8 +63,8 @@ public class Proyecto {
     @Column(name = "monto_indemnizacion", precision = 15, scale = 2)
     private BigDecimal montoIndemnizacion;
 
-    @Column(name = "dni_empleado")
-    private String dniEmpleado;
+    @Column(name = "rut_Empleado")
+    private String rutEmpleado;
 
     @Column(name = "email_empleado")
     private String emailEmpleado;
@@ -74,8 +74,8 @@ public class Proyecto {
     @Column(name = "fecha_audiencia")
     private LocalDate fechaAudiencia;
 
-    @Column(name = "juzgado")
-    private String juzgado;
+    @Column(name = "Dirección_trabajo")
+    private String direccionTrabajo;
 
     @Column(name = "numero_causa")
     private String numeroCausa;
@@ -109,6 +109,12 @@ public class Proyecto {
     @Column(name = "fecha_modificacion")
     private LocalDateTime fechaModificacion;
 
+    @Column(name = "rut_abogado_Empleado")
+    private String rutAbogadoEmpleado;
+
+    @Column(name = "rut_Abogado_Empresa")
+    private String rutAbogadoEmpresa;
+
     // === DOCUMENTOS ===
     @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<DocumentoProyecto> documentos = new ArrayList<>();
@@ -130,6 +136,7 @@ public class Proyecto {
     }
 
     public enum TipoDespido {
-        SIN_CAUSA, CON_CAUSA, VOLUNTARIO, MUTUO_ACUERDO, REDUCCION_PERSONAL
+        DESVINCULACION_VOLUNTARIA, MUTUO_ACUERDO, DESVINCULACION_INVOLUNTARIA,
+        CAUSALES_DISCIPLINARIAS, CAUSALES_OBJETIVAS, OTRAS_CAUSALES
     }
 }

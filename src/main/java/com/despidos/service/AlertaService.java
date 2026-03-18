@@ -94,11 +94,11 @@ public class AlertaService {
             proyectoRepository.save(proyecto);
 
             log.info("Alerta enviada para proyecto: {} - Días restantes: {} - Docs faltantes: {}",
-                    proyecto.getNumeroExpediente(), diasRestantes, docsFaltantes.size());
+                    proyecto.getNombreExpediente(), diasRestantes, docsFaltantes.size());
             return true;
 
         } catch (Exception e) {
-            log.error("Error al enviar alerta para proyecto {}: {}", proyecto.getNumeroExpediente(), e.getMessage());
+            log.error("Error al enviar alerta para proyecto {}: {}", proyecto.getNombreExpediente(), e.getMessage());
             return false;
         }
     }
@@ -127,13 +127,13 @@ public class AlertaService {
         sb.append("ALERTA DEL SISTEMA DE GESTIÓN DE DESPIDOS\n");
         sb.append("==========================================\n\n");
 
-        sb.append(String.format("EXPEDIENTE: %s\n", proyecto.getNumeroExpediente()));
+        sb.append(String.format("EXPEDIENTE: %s\n", proyecto.getNombreExpediente()));
         sb.append(String.format("EMPLEADO: %s %s\n", proyecto.getNombreEmpleado(), proyecto.getApellidoEmpleado()));
         sb.append(String.format("FECHA DE AUDIENCIA: %s\n", proyecto.getFechaAudiencia()));
         sb.append(String.format("DÍAS RESTANTES: %d días\n", diasRestantes));
 
-        if (proyecto.getJuzgado() != null) {
-            sb.append(String.format("JUZGADO: %s\n", proyecto.getJuzgado()));
+        if (proyecto.getDireccionTrabajo() != null) {
+            sb.append(String.format("JUZGADO: %s\n", proyecto.getDireccionTrabajo()));
         }
         if (proyecto.getNumeroCausa() != null) {
             sb.append(String.format("NÚMERO DE CAUSA: %s\n", proyecto.getNumeroCausa()));
