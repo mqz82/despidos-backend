@@ -71,6 +71,14 @@ public class DocumentoProyecto {
     @Column(name = "archivo_tipo")
     private String archivoTipo;
 
+
+    @Column(name = "guardado_fisico")
+    private Boolean guardadoFisico;
+
+    @Column(name = "ruta_fisica")
+    private String rutaFisica;
+
+
     @PrePersist
     protected void onCreate() {
         fechaCreacion = LocalDateTime.now();

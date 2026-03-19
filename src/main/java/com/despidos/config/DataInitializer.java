@@ -30,18 +30,13 @@ public class DataInitializer implements CommandLineRunner {
         if (tipoDocRepo.count() > 0) return;
 
         List<TipoDocumento> tipos = List.of(
-            crearTipo("Telegrama de Despido", "Telegrama fehaciente notificando el despido", true, TipoDocumento.CategoriaDocumento.LEGAL, 1),
-            crearTipo("Liquidación Final", "Liquidación detallada de haberes finales e indemnización", true, TipoDocumento.CategoriaDocumento.CONTABLE, 2),
-            crearTipo("Recibos de Sueldo (últimos 12 meses)", "Comprobantes de haberes de los últimos 12 meses", true, TipoDocumento.CategoriaDocumento.LABORAL, 3),
-            crearTipo("Contrato Laboral", "Contrato de trabajo original firmado por ambas partes", true, TipoDocumento.CategoriaDocumento.LABORAL, 4),
-            crearTipo("Legajo Personal", "Legajo completo del empleado con historial laboral", true, TipoDocumento.CategoriaDocumento.LABORAL, 5),
-            crearTipo("Notificaciones Previas", "Apercibimientos, suspensiones y llamadas de atención anteriores", false, TipoDocumento.CategoriaDocumento.LEGAL, 6),
-            crearTipo("Pericial Contable", "Informe pericial sobre los montos reclamados", false, TipoDocumento.CategoriaDocumento.CONTABLE, 7),
-            crearTipo("Certificado de Servicios", "Certificado de servicios y remuneraciones (Art. 80 LCT)", true, TipoDocumento.CategoriaDocumento.LABORAL, 8),
-            crearTipo("Telegramas Ley", "Telegramas del trabajador reclamando documentación", false, TipoDocumento.CategoriaDocumento.LEGAL, 9),
-            crearTipo("Acta de Mediación", "Acta de la instancia de mediación prejudicial", false, TipoDocumento.CategoriaDocumento.LEGAL, 10),
-            crearTipo("Recibo de Pago Indemnización", "Comprobante de pago de la indemnización", false, TipoDocumento.CategoriaDocumento.CONTABLE, 11),
-            crearTipo("Historia Clínica / ART", "Documentación médica y de ART relevante", false, TipoDocumento.CategoriaDocumento.MEDICO, 12)
+                crearTipo("Carta de aviso de  despido", "Carta de despido fehaciente notificando el despido", true, TipoDocumento.CategoriaDocumento.LEGAL, 1),
+                crearTipo("Contrato de trabajo Final", "Documento acuerdo legal obligatorio y consensuado entre empleador y trabajador, que define las condiciones de la relación laboral (funciones, salario, jornada)", true, TipoDocumento.CategoriaDocumento.CONTABLE, 2),
+                crearTipo("Recibos de Sueldo (últimos 12 meses)", "Comprobantes de haberes de los últimos 12 meses", true, TipoDocumento.CategoriaDocumento.LABORAL, 3),
+                crearTipo("Finiquito", "Documento legal obligatorio que formaliza el término de la relación", true, TipoDocumento.CategoriaDocumento.LABORAL, 4),
+                crearTipo("Certificado cotizaciones", "Certificado de cotizaciones previsionales (AFP, Fonasa/Isapre, AFC) para asegurar que estén al día.", true, TipoDocumento.CategoriaDocumento.LABORAL, 5),
+                crearTipo("Notificaciones Previas", "Apercibimientos, suspensiones y llamadas de atención anteriores", false, TipoDocumento.CategoriaDocumento.LEGAL, 6),
+                crearTipo("Actas Previas:", "i hubo comparendo de conciliación previo en la inspección, el acta original es crucial. ", false, TipoDocumento.CategoriaDocumento.CONTABLE, 7)
         );
 
         tipoDocRepo.saveAll(tipos);
