@@ -4,6 +4,9 @@ import com.despidos.model.DocumentoProyecto;
 import com.despidos.repository.DocumentoProyectoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.file.*;
 import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/api/archivos")
@@ -21,7 +27,12 @@ import java.util.Map;
 @Slf4j
 public class ArchivoController {
 
+    @Value("${archivos.upload-dir:uploads}")
+    private String uploadDir;
+
+
     private final DocumentoProyectoRepository documentoRepo;
+
 
     // SUBIR archivo
     @PostMapping("/subir/{documentoId}")
@@ -105,4 +116,41 @@ public class ArchivoController {
 
         return ResponseEntity.ok(resultado);
     }
+
+
+    @PostMapping("/subir-fisico/{documentoId}")
+    public ResponseEntity<DocumentoProyecto> subirDocumentoFisico(@PathVariable Long documentoId, @RequestParam("archivo") MultipartFile archivo) throws IOException {
+
+        DocumentoProyecto doc = documentoRepo.findById(documentoId).orElseThrow(() -> new RuntimeException("Documento no encontrado;"+ documentoId ));
+
+        // Obtener nombre del expediente para crear carpeta
+        String nombreCarpeta = doc.getProyecto().getNombreExpediente()
+                .replaceAll("[^a-zA-Z0-9\\-]", "-").toLowerCase();
+
+        // Crear carpeta con nombre del expediente
+        Path carpeta = Paths.get(uploadDir, nombreCarpeta);
+        if (!Files.exists(carpeta)) {
+            Files.createDirectories(carpeta);
+        }
+
+        // Guardar archivo en disco
+        String nombreArchivo = archivo.getOriginalFilename();
+        Path rutaArchivo = carpeta.resolve(nombreArchivo);
+        Files.copy(archivo.getInputStream(), rutaArchivo, StandardCopyOption.REPLACE_EXISTING);
+
+        log.info("ruta archivo : "+ rutaArchivo );
+
+        // Actualizar documento en BD
+        doc.setNombreArchivo(nombreArchivo);
+        doc.setRutaFisica(rutaArchivo.toString());
+        doc.setGuardadoFisico(true);
+        doc.setEstado(DocumentoProyecto.EstadoDocumento.RECIBIDO);
+        documentoRepo.save(doc);
+
+        log.info("Archivo guardado físicamente: {} en carpeta: {}", nombreArchivo, nombreCarpeta);
+
+        return ResponseEntity.ok(doc);
+
+    }
+
 }
