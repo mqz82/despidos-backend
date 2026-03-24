@@ -1,5 +1,6 @@
 package com.despidos.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ public class Abogado {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "persona_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Persona persona;
 
     @Column(name = "numero_colegiatura")
