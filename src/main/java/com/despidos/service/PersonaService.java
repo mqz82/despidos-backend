@@ -99,4 +99,9 @@ public class PersonaService {
         contacto.setActivo(false);
         contactoRepo.save(contacto);
     }
+
+    @Transactional(readOnly = true)
+    public Optional<Persona> buscarPorRut(String rut) {
+        return personaRepo.findByRut(rut);
+    }
 }

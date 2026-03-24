@@ -25,10 +25,36 @@ public class AbogadoService {
     // ==========================================
 
     public Abogado crearAbogado(Abogado abogado) {
-        // Primero guardar la persona
-        Persona persona = personaRepo.save(abogado.getPersona());
+//        // validar rut duplicado
+//        if (abogado.getPersona().getRut()  != null &&  personaRepo.existsByRut(abogado.getPersona().getRut())) {
+//            throw new RuntimeException("Ya existe la persona con el rut : " + abogado.getPersona().getRut());
+//        }
+//
+//        // Primero guardar la persona
+//        Persona persona = personaRepo.save(abogado.getPersona());
+//        abogado.setPersona(persona);
+//        log.info("Creando abogado: {} {}", persona.getNombres(), persona.getAppPaterno());
+
+        // valida si existe como persona
+
+        Persona persona;
+        String rut = abogado.getPersona().getRut();
+
+        if(rut != null && personaRepo.existsByRut(rut)){
+             // persona existe verificar si es abogado.
+            persona = personaRepo.findByRut(rut).orElseThrow(() -> new RuntimeException("Error a buscar la persona"));
+
+            if(abogadoRepo.findByPersonaRut(rut).isPresent()){
+                throw new RuntimeException("Esta persona ya esta registrada como abogado");
+
+            }
+        }else {
+            // persdona nueva crearla
+            persona = personaRepo.save(abogado.getPersona());
+        }
+
         abogado.setPersona(persona);
-        log.info("Creando abogado: {} {}", persona.getNombres(), persona.getAppPaterno());
+        log.info("Creando abogado : "+ persona.getNombres() + persona.getAppPaterno()+ persona.getAppMaterno());
         return abogadoRepo.save(abogado);
     }
 

@@ -82,4 +82,11 @@ public class PersonaController {
         personaService.eliminarContacto(contactoId);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/rut/{rut}")
+    public ResponseEntity<Persona> buscarPorRut(@PathVariable String rut) {
+        return personaService.buscarPorRut(rut)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
 }

@@ -25,10 +25,35 @@ public class FuncionarioService {
     // ==========================================
 
     public Funcionario crearFuncionario(Funcionario funcionario) {
-        // Primero guardar la persona
-        Persona persona = personaRepo.save(funcionario.getPersona());
+//        // valida que el rut exista.
+//        if(funcionario.getPersona().getRut() != null && personaRepo.existsByRut(funcionario.getPersona().getRut())){
+//            throw new RuntimeException("Ya existe la persona con el rut : " + funcionario.getPersona().getRut());
+//        }
+//
+//        // Primero guardar la persona
+//        Persona persona = personaRepo.save(funcionario.getPersona());
+//        funcionario.setPersona(persona);
+//        log.info("Creando funcionario: {} {}", persona.getNombres(), persona.getAppPaterno());
+
+        Persona persona;
+        String rut = funcionario.getPersona().getRut();
+
+        if(rut != null && personaRepo.existsByRut(rut)){
+            // persona existe verificar si es abogado.
+            persona = personaRepo.findByRut(rut).orElseThrow(() -> new RuntimeException("Error a buscar la persona"));
+
+            if(funcionarioRepo.findByPersonaRut(rut).isPresent()){
+                throw new RuntimeException("Esta persona ya esta registrada como abogado");
+
+            }
+        }else {
+            // persdona nueva crearla
+            persona = personaRepo.save(funcionario.getPersona());
+        }
+
         funcionario.setPersona(persona);
-        log.info("Creando funcionario: {} {}", persona.getNombres(), persona.getAppPaterno());
+        log.info("Creando funcionario : "+ persona.getNombres() + persona.getAppPaterno()+ persona.getAppMaterno());
+
         return funcionarioRepo.save(funcionario);
     }
 
